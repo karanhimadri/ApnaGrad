@@ -34,7 +34,7 @@ export default function Navbar() {
     setOpen(false);
   }, [pathname]);
 
-  const isActive = (path) => pathname === path;
+  const isActive = (path) => pathname === path || pathname.startsWith(`${path}/`);
 
   const navLinks = [
     { href: "/notes", label: "Notes" },
