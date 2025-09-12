@@ -6,16 +6,28 @@ import { usePathname } from "next/navigation";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+
+  // Handle mounting to prevent hydration issues
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Handle scroll effect
   useEffect(() => {
+    if (!mounted) return;
+    
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
+    
+    // Set initial scroll state
+    handleScroll();
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [mounted]);
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -32,7 +44,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header className={`sticky top-0 z-50 transition-all duration-300 ${scrolled
+    <header className={`sticky top-0 z-50 transition-all duration-300 ${mounted && scrolled
       ? 'bg-white backdrop-blur-md border-b border-gray-300 shadow-md'
       : 'bg-white backdrop-blur-md border-b border-gray-200 shadow-sm'
       }`}>
