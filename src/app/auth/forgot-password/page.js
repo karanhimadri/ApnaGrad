@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import Button from "@/components/Button";
+import authService from "@/lib/auth";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -11,25 +12,34 @@ export default function ForgotPasswordPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!email) {
       setError("Email is required");
       return;
     }
-    
+
     if (!/\S+@\S+\.\S+/.test(email)) {
       setError("Please enter a valid email address");
       return;
     }
-    
+
     setIsLoading(true);
     setError("");
-    
-    // Simulate API call
-    setTimeout(() => {
+
+    try {
+      const result = await authService.forgotPassword(email);
+
+      if (result.success) {
+        setIsSubmitted(true);
+      } else {
+        setError(result.error);
+      }
+    } catch (error) {
+      console.error('Forgot password error:', error);
+      setError('An unexpected error occurred. Please try again.');
+    } finally {
       setIsLoading(false);
-      setIsSubmitted(true);
-    }, 1500);
+    }
   };
 
   if (isSubmitted) {
@@ -50,22 +60,22 @@ export default function ForgotPasswordPage() {
             We&apos;ve sent a password reset link to <strong>{email}</strong>
           </p>
         </div>
-        
+
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10 text-center space-y-4">
             <p className="text-gray-600">
               Didn&apos;t receive the email? Check your spam folder or try again.
             </p>
             <div className="space-y-3">
-              <Button 
-                variant="primary" 
-                size="lg" 
+              <Button
+                variant="primary"
+                size="lg"
                 className="w-full"
                 onClick={() => setIsSubmitted(false)}
               >
                 Try again
               </Button>
-              <Link 
+              <Link
                 href="/auth/login"
                 className="block text-blue-600 hover:text-blue-500 font-medium"
               >
@@ -96,6 +106,21 @@ export default function ForgotPasswordPage() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10">
+          {error && (
+            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-red-800">{error}</p>
+                </div>
+              </div>
+            </div>
+          )}
+          
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -112,9 +137,9 @@ export default function ForgotPasswordPage() {
                     setEmail(e.target.value);
                     setError("");
                   }}
-                  className={`appearance-none block w-full px-3 py-2 border ${
-                    error ? 'border-red-300' : 'border-gray-300'
-                  } rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                  disabled={isLoading}
+                  className={`appearance-none block w-full px-3 py-2 border text-black ${error ? 'border-red-300' : 'border-gray-300'
+                    } rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${isLoading ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                   placeholder="Enter your email address"
                 />
                 {error && (

@@ -2,6 +2,8 @@
 import Link from "next/link";
 import SearchBar from "@/components/SearchBar";
 import NoteCard from "@/components/NoteCard";
+import { useEffect } from "react";
+import authService from "@/lib/auth";
 
 export default function Home() {
   const features = [
@@ -11,13 +13,13 @@ export default function Home() {
       desc: "Access curated notes from top students and professors across all subjects and semesters."
     },
     {
-      icon: "🎯", 
+      icon: "🎯",
       title: "Previous Year Questions",
       desc: "Practice with organized previous year questions to ace your exams with confidence."
     },
     {
       icon: "🏆",
-      title: "Digital Certificates", 
+      title: "Digital Certificates",
       desc: "Generate professional certificates for MAR points, participation, and achievements."
     },
     {
@@ -53,12 +55,20 @@ export default function Home() {
     { number: "95%", label: "Success Rate" }
   ];
 
+  useEffect(() => {
+    async function profile() {
+      const res = await authService.getUserProfile("68c48dd3003a20a65b08");
+      console.log(res)
+    }
+    // profile();
+  }, [])
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-50 to-indigo-50 overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        
+
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24">
           <div className="text-center space-y-8 sm:space-y-12">
             <div className="space-y-4 sm:space-y-6">
@@ -72,15 +82,15 @@ export default function Home() {
                 </span>
               </h1>
               <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
-                Access comprehensive study materials, previous year questions, and tools designed 
+                Access comprehensive study materials, previous year questions, and tools designed
                 to help you excel in your academic journey. Join thousands of successful students.
               </p>
             </div>
-            
+
             <div className="max-w-2xl mx-auto">
               <SearchBar onSearch={(q) => console.log("home search:", q)} />
             </div>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center px-4">
               <Link href="/notes" className="w-full sm:w-auto btn-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all">
                 <span className="flex items-center justify-center gap-2">
@@ -128,7 +138,7 @@ export default function Home() {
               Comprehensive tools and resources designed to accelerate your learning and academic success.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <div key={index} className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-gray-100">
@@ -153,7 +163,7 @@ export default function Home() {
               View All →
             </Link>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featured.map((note, index) => (
               <NoteCard key={index} {...note} />

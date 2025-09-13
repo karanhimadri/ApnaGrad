@@ -41,6 +41,7 @@ const departments = [
   }
 ];
 
+// Notes Data
 const CSE = [
   {
     semester: 1,
@@ -128,6 +129,7 @@ const CSE = [
   }
 ];
 
+// PYQ Data
 const pyqCSE = [
   {
     semester: 1,
@@ -182,14 +184,14 @@ const pyqCSE = [
     available: true,
     pyqs: [
       {
-        year: 2023,
+        year: 2025,
         available: true,
         subjects: [
-          { name: "Analog and Digital Electronics", available: true, fileId: "ade_id" },
-          { name: "Data Structures & Algorithms", available: true, fileId: "dsa_id" },
-          { name: "Computer Organisation", available: true, fileId: "co_id" },
-          { name: "Mathematics-III (Differential Calculus)", available: true, fileId: "math3_id" },
-          { name: "Economics for Engineers (Humanities-II)", available: true, fileId: "economics_id" }
+          { name: "Analog and Digital Electronics", available: true, fileId: "1Ju0kLfioDkpYpF3OeTtit2TbWVyu0HvV" },
+          { name: "Data Structures & Algorithms", available: true, fileId: "1o-VZR3eOS2T3c9Zr3e4I-6s9nbSTTzmy" },
+          { name: "Computer Organisation", available: true, fileId: "1k7qNIvUUFvS6jtFIUl9X52S8unxei7t_" },
+          { name: "Mathematics-III (Differential Calculus)", available: true, fileId: "1yC3uuykUFhs-liDDLePrCXzwH5ij_Uuj" },
+          { name: "Economics for Engineers (Humanities-II)", available: true, fileId: "1qUnLUJ0jwAVsD_AFNookd7cw-_xck4PZ" }
         ]
       }
     ]
@@ -258,6 +260,16 @@ const pyqCSE = [
           { name: "Multi-Media System", available: true, fileId: "1Zbw3NymTPGgwa5ceEH51RgosF1zGFfVn" },
           { name: "Cyber Security", available: true, fileId: "1A-5_5N438XjBKgKeBXirYp4yZ2kwPPei" },
           { name: "Project Management & Entrepreneurship", available: true, fileId: "1TOJV_-TjclL2J4I6gCRjNLi2PNNvnqKj" }
+        ]
+      },
+      {
+        year: 2023,
+        available: true,
+        subjects: [
+          { name: "Machine Learning", available: true, fileId: "148Z0owHjHmvgzNp8r_g10TAQyNXM-YdI" },
+          { name: "Multi-Media System", available: true, fileId: "148W5__TvWYoUEBSOqwoRVw6-fENgqrWV" },
+          { name: "Cyber Security", available: true, fileId: "1qYUyEXNmu8rtf6Hj7cRTSxRrr8_-pmiR" },
+          { name: "Project Management & Entrepreneurship", available: true, fileId: "1pQWelNu_gmvHCRw7LkR5LUdu86je2ty0" }
         ]
       }
     ]

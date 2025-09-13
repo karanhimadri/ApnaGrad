@@ -1,23 +1,30 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
+import authService from "@/lib/auth";
+import { useUser } from "@/context/UserContextProvider";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
     university: "",
     semester: "",
     branch: "",
-    agreeTos: false,
+    agreeTerms: false,
     agreeMarketing: false
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const router = useRouter();
+  const { fetchUserData } = useUser();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -25,9 +32,18 @@ export default function RegisterPage() {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
+
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+
+    // Clear general error and success messages when user makes changes
+    if (errors.submit) {
+      setErrors(prev => ({ ...prev, submit: '' }));
+    }
+    if (successMessage) {
+      setSuccessMessage('');
     }
   };
 
@@ -46,6 +62,12 @@ export default function RegisterPage() {
       newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Email is invalid';
+    }
+
+    if (!formData.phone) {
+      newErrors.phone = 'Phone number is required';
+    } else if (!/^\+?[\d\s\-\(\)]{10,15}$/.test(formData.phone.replace(/\s/g, ''))) {
+      newErrors.phone = 'Please enter a valid phone number (10-15 digits)';
     }
 
     if (!formData.password) {
@@ -72,8 +94,8 @@ export default function RegisterPage() {
       newErrors.branch = 'Branch is required';
     }
 
-    if (!formData.agreeTos) {
-      newErrors.agreeTos = 'You must agree to the terms of service';
+    if (!formData.agreeTerms) {
+      newErrors.agreeTerms = 'You must agree to the terms of service';
     }
 
     return newErrors;
@@ -89,11 +111,40 @@ export default function RegisterPage() {
     }
 
     setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
+    setErrors({});
+    setSuccessMessage('');
+
+    try {
+      const result = await authService.register({
+        email: formData.email,
+        password: formData.password,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        phone: formData.phone,
+        university: formData.university,
+        semester: formData.semester,
+        branch: formData.branch,
+        agreeTerms: formData.agreeTerms,
+        agreeMarketing: formData.agreeMarketing
+      });
+
+      if (result.success) {
+        setSuccessMessage(result.message);
+        // Update global user state
+        await fetchUserData();
+        // Redirect to dashboard after successful registration
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 2000);
+      } else {
+        setErrors({ submit: result.error });
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      setErrors({ submit: 'An unexpected error occurred. Please try again.' });
+    } finally {
       setIsLoading(false);
-      alert('Account created successfully! (Demo)');
-    }, 2000);
+    }
   };
 
   const universities = ["MAKAUT", "Jadavpur University", "Calcutta University", "Other"];
@@ -121,6 +172,38 @@ export default function RegisterPage() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-6 px-4 shadow-lg sm:rounded-lg sm:px-10">
+          {/* Success Message */}
+          {successMessage && (
+            <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-md">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-green-800">{successMessage}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* General Error Message */}
+          {errors.submit && (
+            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-red-800">{errors.submit}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
           <form className="space-y-4" onSubmit={handleSubmit}>
             {/* Name Fields */}
             <div className="grid grid-cols-2 gap-4 text-black">
@@ -134,8 +217,9 @@ export default function RegisterPage() {
                   type="text"
                   value={formData.firstName}
                   onChange={handleChange}
+                  disabled={isLoading}
                   className={`mt-1 appearance-none block w-full px-3 py-2 border ${errors.firstName ? 'border-red-300' : 'border-gray-300'
-                    } rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                    } rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${isLoading ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                   placeholder="John"
                 />
                 {errors.firstName && (
@@ -153,8 +237,9 @@ export default function RegisterPage() {
                   type="text"
                   value={formData.lastName}
                   onChange={handleChange}
+                  disabled={isLoading}
                   className={`mt-1 appearance-none block w-full px-3 py-2 border ${errors.lastName ? 'border-red-300' : 'border-gray-300'
-                    } rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                    } rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${isLoading ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                   placeholder="Doe"
                 />
                 {errors.lastName && (
@@ -181,6 +266,27 @@ export default function RegisterPage() {
               />
               {errors.email && (
                 <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+              )}
+            </div>
+
+            {/* Phone Number */}
+            <div className="text-black">
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                Phone Number
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                autoComplete="tel"
+                value={formData.phone}
+                onChange={handleChange}
+                className={`mt-1 appearance-none block w-full px-3 py-2 border ${errors.phone ? 'border-red-300' : 'border-gray-300'
+                  } rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                placeholder="+1 (555) 123-4567"
+              />
+              {errors.phone && (
+                <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
               )}
             </div>
 
@@ -295,22 +401,22 @@ export default function RegisterPage() {
             {/* Checkboxes */}
             {/* Checkboxes */}
             <div className="space-y-3">
-              {/* Error message for agreeTos */}
-              {errors.agreeTos && (
-                <p className="text-sm text-red-600">{errors.agreeTos}</p>
+              {/* Error message for agreeTerms */}
+              {errors.agreeTerms && (
+                <p className="text-sm text-red-600">{errors.agreeTerms}</p>
               )}
 
               {/* Terms & Conditions Checkbox */}
               <div className="flex items-start">
                 <input
-                  id="agreeTos"
-                  name="agreeTos"
+                  id="agreeTerms"
+                  name="agreeTerms"
                   type="checkbox"
-                  checked={formData.agreeTos}
+                  checked={formData.agreeTerms}
                   onChange={handleChange}
                   className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1"
                 />
-                <label htmlFor="agreeTos" className="ml-2 block text-sm text-gray-900">
+                <label htmlFor="agreeTerms" className="ml-2 block text-sm text-gray-900">
                   I agree to the{' '}
                   <Link href="/terms" className="text-blue-600 hover:underline" target="_blank">
                     Terms of Service
