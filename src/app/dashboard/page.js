@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import Button from "@/components/Button";
 import { useUser } from "@/context/UserContextProvider";
 
@@ -58,9 +59,11 @@ export default function DashboardPage() {
             {/* Profile Card */}
             <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
               <div className="relative inline-block mb-4">
-                <img
+                <Image
                   src={avatarUrl}
                   alt={`${userProfile.firstName} ${userProfile.lastName}`}
+                  width={80}
+                  height={80}
                   className="w-20 h-20 rounded-full mx-auto border-4 border-blue-100"
                 />
                 {userProfile.isPremium && (

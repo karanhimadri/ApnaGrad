@@ -12,7 +12,7 @@ export default function NotFound() {
         <h1 className="text-6xl font-bold text-gray-900">404</h1>
         <h2 className="text-xl font-semibold text-gray-700 mb-2">Page Not Found</h2>
         <p className="text-gray-600 mb-8">
-          The page you're looking for doesn't exist.
+          The page you&apos;re looking for doesn&apos;t exist.
         </p>
 
         {/* Action Buttons */}
