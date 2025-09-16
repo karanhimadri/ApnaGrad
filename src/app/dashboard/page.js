@@ -60,7 +60,7 @@ export default function DashboardPage() {
             <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
               <div className="relative inline-block mb-4">
                 <Image
-                  src={avatarUrl}
+                  src="/5.png"
                   alt={`${userProfile.firstName} ${userProfile.lastName}`}
                   width={80}
                   height={80}

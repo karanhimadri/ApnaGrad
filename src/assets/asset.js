@@ -1,8 +1,8 @@
-const departments = [
+export const departments = [
   {
     name: "CSE",
     fullName: "Computer Science Engineering",
-    description: "Study materials for programming, algorithms, software engineering, and more",
+    description: "Study materials for programming, algorithms, software engineering, and more.",
     count: 89,
     available: true,
     color: "blue"
@@ -10,7 +10,7 @@ const departments = [
   {
     name: "ECE",
     fullName: "Electronics & Communication Engineering",
-    description: "Circuit design, communication systems, and digital electronics",
+    description: "Circuit design, communication systems, and digital electronics.",
     count: 67,
     available: false,
     color: "purple"
@@ -18,7 +18,7 @@ const departments = [
   {
     name: "ME",
     fullName: "Mechanical Engineering",
-    description: "Thermodynamics, mechanics, manufacturing, and design engineering",
+    description: "Thermodynamics, mechanics, manufacturing, and design engineering.",
     count: 43,
     available: false,
     color: "green"
@@ -26,7 +26,7 @@ const departments = [
   {
     name: "CE",
     fullName: "Civil Engineering",
-    description: "Structural engineering, construction management, and infrastructure",
+    description: "Structural engineering, construction management, and infrastructure.",
     count: 32,
     available: false,
     color: "orange"
@@ -34,113 +34,111 @@ const departments = [
   {
     name: "EE",
     fullName: "Electrical Engineering",
-    description: "Power systems, control systems, and electrical machines",
+    description: "Power systems, control systems, and electrical machines.",
     count: 45,
     available: false,
     color: "red"
   }
 ];
 
-// Notes Data
-const CSE = [
+export const CSE_Notes = [
   {
     semester: 1,
     available: true,
     subjects: [
-      { name: "Physics‑I", available: true, pdfLink: "https://example.com/physics1.pdf" },
-      { name: "Mathematics – IA", available: true, pdfLink: "https://example.com/math1a.pdf" },
-      { name: "Basic Electrical Engineering", available: true, pdfLink: "https://example.com/bee.pdf" }
+      { name: "Physics-I", available: true, fileId: "" },
+      { name: "Mathematics-IA", available: true, fileId: "" },
+      { name: "Basic Electrical Engineering", available: true, fileId: "" }
     ]
   },
   {
     semester: 2,
     available: false,
     subjects: [
-      { name: "Chemistry‑I", available: false, pdfLink: "#" },
-      { name: "Mathematics – II", available: false, pdfLink: "#" },
-      { name: "Programming for Problem Solving", available: false, pdfLink: "#" }
+      { name: "Chemistry-I", available: false, fileId: "" },
+      { name: "Mathematics-II", available: false, fileId: "" },
+      { name: "Programming for Problem Solving", available: false, fileId: "" }
     ]
   },
   {
     semester: 3,
     available: true,
     subjects: [
-      { name: "Analog and Digital Electronics", available: true, pdfLink: "https://example.com/ade.pdf" },
-      { name: "Data Structures & Algorithms", available: true, pdfLink: "https://example.com/dsa.pdf" },
-      { name: "Computer Organisation", available: true, pdfLink: "https://example.com/co.pdf" },
-      { name: "Mathematics‑III (Differential Calculus)", available: true, pdfLink: "https://example.com/math3.pdf" },
-      { name: "Economics for Engineers (Humanities‑II)", available: true, pdfLink: "https://example.com/economics.pdf" }
+      { name: "Analog and Digital Electronics", available: true, fileId: "" },
+      { name: "Data Structures & Algorithms", available: true, fileId: "" },
+      { name: "Computer Organisation", available: true, fileId: "" },
+      { name: "Mathematics-III (Differential Calculus)", available: true, fileId: "" },
+      { name: "Economics for Engineers (Humanities-II)", available: true, fileId: "" }
     ]
   },
   {
     semester: 4,
     available: true,
     subjects: [
-      { name: "Discrete Mathematics", available: false, pdfLink: "#" },
-      { name: "Computer Architecture", available: true, pdfLink: "#" },
-      { name: "Formal Language & Automata Theory", available: false, pdfLink: "#" },
-      { name: "Design & Analysis of Algorithms", available: true, pdfLink: "#" }
+      { name: "Discrete Mathematics", available: false, fileId: "" },
+      { name: "Computer Architecture", available: true, fileId: "" },
+      { name: "Formal Language & Automata Theory", available: false, fileId: "" },
+      { name: "Design & Analysis of Algorithms", available: true, fileId: "" }
     ]
   },
   {
     semester: 5,
     available: true,
     subjects: [
-      { name: "Software Engineering", available: true, pdfLink: "https://example.com/se.pdf" },
-      { name: "Compiler Design", available: true, pdfLink: "https://example.com/compiler.pdf" },
-      { name: "Operating Systems", available: true, pdfLink: "https://example.com/os.pdf" },
-      { name: "Object Oriented Programming", available: true, pdfLink: "https://example.com/oop.pdf" },
-      { name: "Artificial Intelligence", available: true, pdfLink: "https://example.com/ai.pdf" },
-      { name: "Introduction to Industrial Management (Humanities III)", available: true, pdfLink: "https://example.com/iim.pdf" }
+      { name: "Software Engineering", available: true, fileId: "" },
+      { name: "Compiler Design", available: true, fileId: "" },
+      { name: "Operating Systems", available: true, fileId: "" },
+      { name: "Object Oriented Programming", available: true, fileId: "" },
+      { name: "Artificial Intelligence", available: true, fileId: "" },
+      { name: "Introduction to Industrial Management (Humanities-III)", available: true, fileId: "" }
     ]
   },
   {
     semester: 6,
     available: true,
     subjects: [
-      { name: "Database Management Systems", available: true, pdfLink: "https://example.com/dbms.pdf" },
-      { name: "Computer Networks", available: true, pdfLink: "https://example.com/cn.pdf" },
-      { name: "Image Processing", available: true, pdfLink: "https://example.com/ip.pdf" },
-      { name: "Data Warehousing and Data Mining", available: true, pdfLink: "https://example.com/dwdm.pdf" },
-      { name: "Numerical Methods", available: true, pdfLink: "https://example.com/nm.pdf" },
-      { name: "Research Methodology", available: true, pdfLink: "https://example.com/rm.pdf" }
+      { name: "Database Management Systems", available: true, fileId: "" },
+      { name: "Computer Networks", available: true, fileId: "" },
+      { name: "Image Processing", available: true, fileId: "" },
+      { name: "Data Warehousing and Data Mining", available: true, fileId: "" },
+      { name: "Numerical Methods", available: true, fileId: "" },
+      { name: "Research Methodology", available: true, fileId: "" }
     ]
   },
   {
     semester: 7,
     available: true,
     subjects: [
-      { name: "Machine Learning", available: true, pdfLink: "https://example.com/ml.pdf" },
-      { name: "Multi-Media System", available: true, pdfLink: "https://example.com/mms.pdf" },
-      { name: "Cyber Security", available: true, pdfLink: "https://example.com/cybersecurity.pdf" },
-      { name: "Project Management", available: true, pdfLink: "https://example.com/projectmgmt.pdf" }
+      { name: "Machine Learning", available: true, fileId: "" },
+      { name: "Multi-Media System", available: true, fileId: "" },
+      { name: "Cyber Security", available: true, fileId: "" },
+      { name: "Project Management", available: true, fileId: "" }
     ]
   },
   {
     semester: 8,
     available: false,
     subjects: [
-      { name: "Capstone Project", available: false, pdfLink: "#" },
-      { name: "Open Elective II", available: false, pdfLink: "#" },
-      { name: "Professional Elective", available: false, pdfLink: "#" },
-      { name: "Dissertation / Internship", available: false, pdfLink: "#" },
-      { name: "Value & Ethics / HSMC subject", available: false, pdfLink: "#" }
+      { name: "Capstone Project", available: false, fileId: "" },
+      { name: "Open Elective II", available: false, fileId: "" },
+      { name: "Professional Elective", available: false, fileId: "" },
+      { name: "Dissertation / Internship", available: false, fileId: "" },
+      { name: "Value & Ethics / HSMC Subject", available: false, fileId: "" }
     ]
   }
 ];
 
-// PYQ Data
-const pyqCSE = [
+export const CSE_PYQs = [
   {
     semester: 1,
     available: true,
-    pyqs: [
+    years: [
       {
         year: 2023,
         available: false,
         subjects: [
           { name: "Physics-I", available: false, fileId: "physics1_id" },
-          { name: "Mathematics – IA", available: false, fileId: "math1a_id" },
+          { name: "Mathematics-IA", available: false, fileId: "math1a_id" },
           { name: "Basic Electrical Engineering", available: false, fileId: "bee_id" }
         ]
       },
@@ -149,7 +147,7 @@ const pyqCSE = [
         available: true,
         subjects: [
           { name: "Physics-I", available: true, fileId: "physics1_id" },
-          { name: "Mathematics – IA", available: false, fileId: "math1a_id" },
+          { name: "Mathematics-IA", available: false, fileId: "math1a_id" },
           { name: "Basic Electrical Engineering", available: true, fileId: "bee_id" }
         ]
       },
@@ -158,7 +156,7 @@ const pyqCSE = [
         available: true,
         subjects: [
           { name: "Physics-I", available: true, fileId: "physics1_id" },
-          { name: "Mathematics – IA", available: true, fileId: "math1a_id" },
+          { name: "Mathematics-IA", available: true, fileId: "math1a_id" },
           { name: "Basic Electrical Engineering", available: true, fileId: "bee_id" }
         ]
       }
@@ -167,13 +165,13 @@ const pyqCSE = [
   {
     semester: 2,
     available: false,
-    pyqs: [
+    years: [
       {
         year: 2023,
         available: false,
         subjects: [
           { name: "Chemistry-I", available: false, fileId: "" },
-          { name: "Mathematics – II", available: false, fileId: "" },
+          { name: "Mathematics-II", available: false, fileId: "" },
           { name: "Programming for Problem Solving", available: false, fileId: "" }
         ]
       }
@@ -182,7 +180,7 @@ const pyqCSE = [
   {
     semester: 3,
     available: true,
-    pyqs: [
+    years: [
       {
         year: 2025,
         available: true,
@@ -199,7 +197,7 @@ const pyqCSE = [
   {
     semester: 4,
     available: true,
-    pyqs: [
+    years: [
       {
         year: 2023,
         available: true,
@@ -215,7 +213,7 @@ const pyqCSE = [
   {
     semester: 5,
     available: true,
-    pyqs: [
+    years: [
       {
         year: 2023,
         available: true,
@@ -225,7 +223,7 @@ const pyqCSE = [
           { name: "Operating Systems", available: true, fileId: "os_id" },
           { name: "Object Oriented Programming", available: true, fileId: "oop_id" },
           { name: "Artificial Intelligence", available: true, fileId: "ai_id" },
-          { name: "Introduction to Industrial Management (Humanities III)", available: true, fileId: "iim_id" }
+          { name: "Introduction to Industrial Management (Humanities-III)", available: true, fileId: "iim_id" }
         ]
       }
     ]
@@ -233,7 +231,7 @@ const pyqCSE = [
   {
     semester: 6,
     available: true,
-    pyqs: [
+    years: [
       {
         year: 2023,
         available: true,
@@ -251,7 +249,7 @@ const pyqCSE = [
   {
     semester: 7,
     available: true,
-    pyqs: [
+    years: [
       {
         year: 2024,
         available: true,
@@ -277,7 +275,7 @@ const pyqCSE = [
   {
     semester: 8,
     available: false,
-    pyqs: [
+    years: [
       {
         year: 2023,
         available: false,
@@ -286,12 +284,9 @@ const pyqCSE = [
           { name: "Open Elective II", available: false, fileId: "" },
           { name: "Professional Elective", available: false, fileId: "" },
           { name: "Dissertation / Internship", available: false, fileId: "" },
-          { name: "Value & Ethics / HSMC subject", available: false, fileId: "" }
+          { name: "Value & Ethics / HSMC Subject", available: false, fileId: "" }
         ]
       }
     ]
   }
 ];
-
-export { CSE, departments, pyqCSE };
-

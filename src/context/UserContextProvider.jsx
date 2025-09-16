@@ -29,13 +29,13 @@ export const UserContextProvider = ({ children }) => {
 
       // Get current user from auth
       const userResult = await authService.getCurrentUser();
-      
+
       if (userResult.success) {
         setUser(userResult.user);
-        
+
         // Get user profile from database
         const profileResult = await authService.getUserProfile(userResult.user.$id);
-        
+
         if (profileResult.success) {
           setUserProfile(profileResult.profile);
         } else {
@@ -66,7 +66,7 @@ export const UserContextProvider = ({ children }) => {
 
     try {
       const profileResult = await authService.getUserProfile(user.$id);
-      
+
       if (profileResult.success) {
         setUserProfile(profileResult.profile);
       } else {
@@ -119,12 +119,12 @@ export const UserContextProvider = ({ children }) => {
     error,
     isAuthenticated,
     isPremium,
-    
+
     // Actions
     fetchUserData,
     refreshUserProfile,
     clearUserData,
-    
+
     // Helpers
     getUserFullName,
     getUserInitials,
