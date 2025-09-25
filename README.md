@@ -1,4 +1,5 @@
-# NoteNest 📚
+# ApnaGrad 📚
+*ApnaGrad - Apna Success*
 
 A comprehensive platform for students to access study materials, practice questions, and generate certificates. Built with Next.js and modern web technologies.
 
@@ -29,8 +30,8 @@ A comprehensive platform for students to access study materials, practice questi
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/notenest.git
-cd notenest
+git clone https://github.com/your-username/apnagrad.git
+cd apnagrad
 ```
 
 2. Install dependencies:

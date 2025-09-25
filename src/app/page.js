@@ -2,40 +2,57 @@
 import Link from "next/link";
 import SearchBar from "@/components/SearchBar";
 import NoteCard from "@/components/NoteCard";
-import { useEffect } from "react";
+import Banner from "@/components/Banner";
+import { useEffect, useState } from "react";
 import authService from "@/lib/auth";
+import { sem7BannerCards, placementBannerCards } from "@/assets/asset";
 
 export default function Home() {
-  const features = [
+  const [showBanner, setShowBanner] = useState(true);
+
+  const quickAccess = [
     {
-      icon: "📚",
-      title: "Comprehensive Notes",
-      desc: "Access curated notes from top students and professors across all subjects and semesters."
+      title: "B.Tech Notes",
+      description: "Semester-wise notes for all branches",
+      icon: "📖",
+      link: "/btech",
+      color: "from-blue-500 to-blue-600",
+      popular: true
     },
     {
-      icon: "🎯",
       title: "Previous Year Questions",
-      desc: "Practice with organized previous year questions to ace your exams with confidence."
+      description: "Year-wise PYQ collections",
+      icon: "📝",
+      link: "/btech/cse/3/pyqs",
+      color: "from-green-500 to-green-600"
     },
     {
+      title: "Free Certificates",
+      description: "Generate professional certificates",
       icon: "🏆",
-      title: "Digital Certificates",
-      desc: "Generate professional certificates for MAR points, participation, and achievements."
+      link: "/free-certificates",
+      color: "from-purple-500 to-purple-600"
     },
     {
-      icon: "⚡",
-      title: "Smart Search",
-      desc: "Find exactly what you need with our intelligent search across all study materials."
+      title: "Placement Preparation",
+      description: "Coding & aptitude practice",
+      icon: "�",
+      link: "/placement",
+      color: "from-orange-500 to-orange-600"
     },
     {
-      icon: "📱",
-      title: "Mobile Friendly",
-      desc: "Study anywhere, anytime with our responsive design optimized for all devices."
+      title: "GATE Preparation",
+      description: "Subject-wise GATE content",
+      icon: "🎯",
+      link: "/gate",
+      color: "from-red-500 to-red-600"
     },
     {
-      icon: "🔄",
-      title: "Regular Updates",
-      desc: "Get the latest syllabus updates and fresh content uploaded by the community."
+      title: "Premium Access",
+      description: "Unlock exclusive content",
+      icon: "⭐",
+      link: "/premium",
+      color: "from-yellow-500 to-yellow-600"
     }
   ];
 
@@ -65,6 +82,33 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
+      {/* Announcement Banner */}
+      {showBanner && (
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between py-3">
+              <div className="flex items-center space-x-4 flex-1">
+                <div className="flex items-center space-x-2">
+                  <span className="text-2xl">🚀</span>
+                  <div>
+                    <p className="text-sm font-medium">Coming Soon: AI Study Planner & Advanced Analytics!</p>
+                    <p className="text-xs opacity-90">Get personalized study schedules and track your progress</p>
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowBanner(false)}
+                className="text-white hover:text-gray-200 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-50 to-indigo-50 overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
@@ -73,26 +117,26 @@ export default function Home() {
           <div className="text-center space-y-8 sm:space-y-12">
             <div className="space-y-4 sm:space-y-6">
               <span className="inline-block px-4 py-2 sm:px-6 sm:py-3 bg-white text-blue-800 rounded-full text-sm font-semibold shadow-sm border border-blue-100">
-                🎓 Trusted by 10,000+ Students Worldwide
+                🎓 Trusted by 10,000+ Students Nationwide
               </span>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Study Smarter,<br />
+                ApnaGrad<br />
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Not Harder
+                  Apna Success
                 </span>
               </h1>
               <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
-                Access comprehensive study materials, previous year questions, and tools designed
-                to help you excel in your academic journey. Join thousands of successful students.
+                Your ultimate destination for engineering notes, PYQs, certificates, and placement preparation.
+                Join thousands of successful graduates who achieved their dreams with ApnaGrad.
               </p>
             </div>
 
-            <div className="max-w-2xl mx-auto">
+            <div className="max-w-2xl mx-auto" id="search">
               <SearchBar onSearch={(q) => console.log("home search:", q)} />
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center px-4">
-              <Link href="/notes" className="w-full sm:w-auto btn-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all">
+              <Link href="/btech" className="w-full sm:w-auto btn-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all">
                 <span className="flex items-center justify-center gap-2">
                   Explore Notes
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,13 +144,124 @@ export default function Home() {
                   </svg>
                 </span>
               </Link>
-              <Link href="/pyqs" className="w-full sm:w-auto border-2 border-gray-300 text-gray-700 px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-base sm:text-lg hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 transition-all shadow-sm hover:shadow-lg">
+              <Link href="/btech/cse/3/pyqs" className="w-full sm:w-auto border-2 border-gray-300 text-gray-700 px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-base sm:text-lg hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 transition-all shadow-sm hover:shadow-lg">
                 <span className="flex items-center justify-center gap-2">
-                  Browse PYQs
+                  Practice PYQs
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Access Section */}
+      <section className="py-16 bg-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Quick Access to Everything
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Jump directly to what you need. No more searching around - your academic success is just one click away.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {quickAccess.map((item, index) => (
+              <Link
+                key={index}
+                href={item.link}
+                className="group relative bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-xl transition-all duration-300 hover:border-transparent"
+              >
+                {item.popular && (
+                  <div className="absolute -top-3 -right-3 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full">
+                    Popular
+                  </div>
+                )}
+                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r ${item.color} text-white text-2xl mb-4`}>
+                  {item.icon}
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  {item.title}
+                </h3>
+                <p className="text-gray-600 mb-4">{item.description}</p>
+                <div className="flex items-center text-blue-600 font-medium group-hover:text-blue-700">
+                  Access Now
+                  <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7th Semester Banner */}
+      <Banner
+        title="🎓 For 7th Sem - Here are notes for these subjects"
+        cards={sem7BannerCards}
+        bgColor="bg-white"
+      />
+
+      {/* Placement Preparation Banner */}
+      <Banner
+        title="🚀 Placement Preparation - Start your journey here"
+        cards={placementBannerCards}
+        bgColor="bg-white"
+      />
+
+      {/* Promotional Banners */}
+      <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div className="text-white">
+              <div className="flex items-center space-x-2 mb-4">
+                <span className="text-3xl">🚀</span>
+                <span className="bg-white bg-opacity-20 text-amber-300 px-3 py-1 rounded-full text-sm font-semibold">
+                  New Launch
+                </span>
+              </div>
+              <h3 className="text-3xl lg:text-4xl font-bold mb-4">
+                Premium Membership Now Available!
+              </h3>
+              <p className="text-xl text-blue-100 mb-6">
+                Get unlimited access to exclusive content, advanced analytics, and priority support.
+              </p>
+              <Link
+                href="/premium"
+                className="inline-flex items-center bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
+              >
+                Upgrade to Premium
+                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </Link>
+            </div>
+            <div className="text-white">
+              <div className="flex items-center space-x-2 mb-4">
+                <span className="text-3xl">🎯</span>
+                <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  Free
+                </span>
+              </div>
+              <h3 className="text-2xl lg:text-3xl font-bold mb-4">
+                Generate Professional Certificates
+              </h3>
+              <p className="text-lg text-blue-100 mb-6">
+                Create certificates for MAR points, participation, and achievements instantly.
+              </p>
+              <Link
+                href="/free-certificates"
+                className="inline-flex items-center border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
+              >
+                Get Free Certificate
+                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
               </Link>
             </div>
           </div>
@@ -121,30 +276,6 @@ export default function Home() {
               <div key={index} className="text-center">
                 <div className="text-3xl lg:text-4xl font-bold text-blue-600">{stat.number}</div>
                 <div className="text-gray-600 font-medium">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Everything You Need to Succeed
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Comprehensive tools and resources designed to accelerate your learning and academic success.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-gray-100">
-                <div className="text-4xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.desc}</p>
               </div>
             ))}
           </div>
@@ -168,6 +299,88 @@ export default function Home() {
             {featured.map((note, index) => (
               <NoteCard key={index} {...note} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Success Stories Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Success Stories from Our Students
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Real results from real students who achieved their academic goals with ApnaGrad
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                  R
+                </div>
+                <div className="ml-4">
+                  <h4 className="font-semibold text-gray-900">Rahul Singh</h4>
+                  <p className="text-sm text-gray-600">CSE, Final Year</p>
+                </div>
+              </div>
+              <p className="text-gray-600 mb-4">
+                "ApnaGrad's PYQ collection helped me improve my semester grades from 7.2 to 8.9 CGPA. The organized content made exam preparation so much easier!"
+              </p>
+              <div className="flex text-yellow-400">
+                ⭐⭐⭐⭐⭐
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                  P
+                </div>
+                <div className="ml-4">
+                  <h4 className="font-semibold text-gray-900">Priya Sharma</h4>
+                  <p className="text-sm text-gray-600">ECE, 3rd Year</p>
+                </div>
+              </div>
+              <p className="text-gray-600 mb-4">
+                "Got placed in TCS through their placement preparation materials. The coding questions and mock interviews were exactly what I needed!"
+              </p>
+              <div className="flex text-yellow-400">
+                ⭐⭐⭐⭐⭐
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">
+                  A
+                </div>
+                <div className="ml-4">
+                  <h4 className="font-semibold text-gray-900">Amit Kumar</h4>
+                  <p className="text-sm text-gray-600">Mechanical, 2nd Year</p>
+                </div>
+              </div>
+              <p className="text-gray-600 mb-4">
+                "The certificate generator helped me get 20 MAR points for extracurricular activities. Simple, fast, and professional quality!"
+              </p>
+              <div className="flex text-yellow-400">
+                ⭐⭐⭐⭐⭐
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <Link
+              href="/testimonials"
+              className="inline-flex items-center text-blue-600 font-medium hover:text-blue-700"
+            >
+              Read More Success Stories
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>

@@ -290,3 +290,164 @@ export const CSE_PYQs = [
     ]
   }
 ];
+
+export const CSE_Organizers = [
+  {
+    semester: 1,
+    available: true,
+    subjects: [
+      { name: "Physics-I", available: true, fileId: "" },
+      { name: "Mathematics-IA", available: true, fileId: "" },
+      { name: "Basic Electrical Engineering", available: true, fileId: "" }
+    ]
+  },
+  {
+    semester: 2,
+    available: false,
+    subjects: [
+      { name: "Chemistry-I", available: false, fileId: "" },
+      { name: "Mathematics-II", available: false, fileId: "" },
+      { name: "Programming for Problem Solving", available: false, fileId: "" }
+    ]
+  },
+  {
+    semester: 3,
+    available: true,
+    subjects: [
+      { name: "Analog and Digital Electronics", available: true, fileId: "" },
+      { name: "Data Structures & Algorithms", available: true, fileId: "" },
+      { name: "Computer Organisation", available: true, fileId: "" },
+      { name: "Mathematics-III (Differential Calculus)", available: true, fileId: "" },
+      { name: "Economics for Engineers (Humanities-II)", available: true, fileId: "" }
+    ]
+  },
+  {
+    semester: 4,
+    available: true,
+    subjects: [
+      { name: "Discrete Mathematics", available: false, fileId: "" },
+      { name: "Computer Architecture", available: true, fileId: "" },
+      { name: "Formal Language & Automata Theory", available: false, fileId: "" },
+      { name: "Design & Analysis of Algorithms", available: true, fileId: "" }
+    ]
+  },
+  {
+    semester: 5,
+    available: true,
+    subjects: [
+      { name: "Software Engineering", available: true, fileId: "" },
+      { name: "Compiler Design", available: true, fileId: "" },
+      { name: "Operating Systems", available: true, fileId: "" },
+      { name: "Object Oriented Programming", available: true, fileId: "" },
+      { name: "Artificial Intelligence", available: true, fileId: "" },
+      { name: "Introduction to Industrial Management (Humanities-III)", available: true, fileId: "" }
+    ]
+  },
+  {
+    semester: 6,
+    available: true,
+    subjects: [
+      { name: "Database Management Systems", available: true, fileId: "" },
+      { name: "Computer Networks", available: true, fileId: "" },
+      { name: "Image Processing", available: true, fileId: "" },
+      { name: "Data Warehousing and Data Mining", available: true, fileId: "" },
+      { name: "Numerical Methods", available: true, fileId: "" },
+      { name: "Research Methodology", available: true, fileId: "" }
+    ]
+  },
+  {
+    semester: 7,
+    available: true,
+    subjects: [
+      { name: "Machine Learning", available: true, fileId: "1Zqx_J8-sec-sAlFQaMTWFffyBquzPv8h" },
+      { name: "Multi-Media System", available: true, fileId: "d/1s-DO72aCh6QLYZ_riPWKUv-enj42Srhs" },
+      { name: "Cyber Security", available: true, fileId: "1_yjVF46dD5CVsqAsNoZHiKVJqIBPVenC" },
+      { name: "Project Management", available: true, fileId: "1YVf5XE1kowIXH7eBFTTbIaHe_Fum6ZKk" }
+    ]
+  },
+  {
+    semester: 8,
+    available: false,
+    subjects: [
+      { name: "Capstone Project", available: false, fileId: "" },
+      { name: "Open Elective II", available: false, fileId: "" },
+      { name: "Professional Elective", available: false, fileId: "" },
+      { name: "Dissertation / Internship", available: false, fileId: "" },
+      { name: "Value & Ethics / HSMC Subject", available: false, fileId: "" }
+    ]
+  }
+];
+
+// Banner Data for Homepage
+
+export const sem7BannerCards = [
+  {
+    title: "Artificial Intelligence",
+    subject: "Advanced concepts, algorithms, and practical applications",
+    href: "/btech/cse/7/notes/ai",
+    icon: "🤖",
+    isNew: true,
+    color: "from-blue-500 to-blue-600"
+  },
+  {
+    title: "Software Engineering",
+    subject: "SDLC, project management, and design patterns",
+    href: "/btech/cse/7/notes/se",
+    icon: "⚙️",
+    color: "from-green-500 to-green-600"
+  },
+  {
+    title: "Compiler Design",
+    subject: "Lexical analysis, parsing, and code optimization",
+    href: "/btech/cse/7/notes/cd",
+    icon: "🔧",
+    color: "from-purple-500 to-purple-600"
+  },
+  {
+    title: "Network Security",
+    subject: "Cryptography, protocols, and security implementation",
+    href: "/btech/cse/7/notes/ns",
+    icon: "🔒",
+    color: "from-red-500 to-red-600"
+  },
+  {
+    title: "Machine Learning",
+    subject: "Algorithms, neural networks, and data analysis",
+    href: "/btech/cse/7/notes/ml",
+    icon: "🧠",
+    isNew: true,
+    color: "from-orange-500 to-orange-600"
+  }
+];
+
+export const placementBannerCards = [
+  {
+    title: "Data Structures & Algorithms",
+    subject: "Essential DSA concepts and coding interview prep",
+    href: "/placement/coding/dsa",
+    icon: "📊",
+    isNew: true,
+    color: "from-blue-500 to-blue-600"
+  },
+  {
+    title: "System Design",
+    subject: "Design scalable systems for tech interviews",
+    href: "/placement/interview/system-design",
+    icon: "🏗️",
+    color: "from-indigo-500 to-indigo-600"
+  },
+  {
+    title: "Aptitude & Reasoning",
+    subject: "Quantitative aptitude and logical reasoning",
+    href: "/placement/aptitude",
+    icon: "🧮",
+    color: "from-green-500 to-green-600"
+  },
+  {
+    title: "Mock Interviews",
+    subject: "Practice with real interview scenarios",
+    href: "/placement/interview/mock",
+    icon: "🎤",
+    color: "from-purple-500 to-purple-600"
+  }
+];

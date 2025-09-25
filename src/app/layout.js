@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "NoteNest",
-  description: "Student notes, PYQs, previous year questions, and certificates in one place",
+  title: "ApnaGrad - Apna Success",
+  description: "ApnaGrad: Your ultimate platform for student notes, PYQs, previous year questions, and certificates. Graduate with confidence!",
   icons: {
     icon: "/logo.png",
     shortcut: "/logo.png",

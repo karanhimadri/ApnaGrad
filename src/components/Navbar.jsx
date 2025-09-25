@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContextProvider";
@@ -92,13 +93,22 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3">
-            <div className="relative w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-xl">N</span>
+            <div className="relative w-10 h-10 rounded-xl overflow-hidden">
+              <Image
+                src="/logo.png"
+                alt="ApnaGrad Logo"
+                width={40}
+                height={40}
+                className="object-contain"
+              />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold text-gray-900">NoteNest</span>
-              <span className="text-xs text-gray-500 -mt-1 hidden sm:block">
-                Study Smarter
+              <span className="text-xl font-bold text-gray-900">
+                ApnaGrad
+                <sup className="text-xs font-normal text-gray-500 ml-0.5 -top-1 relative">uate</sup>
+              </span>
+              <span className="text-xs text-gray-700 -mt-1 hidden sm:block">
+                Apna Success
               </span>
             </div>
           </Link>

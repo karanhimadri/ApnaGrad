@@ -1,124 +1,221 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function SearchBar({ onSearch }) {
   const [q, setQ] = useState("");
-  
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef(null);
+  const containerRef = useRef(null);
+
+  // Sample suggestions (you can make this dynamic based on your data)
+  const suggestions = [
+    "Data Structures and Algorithms",
+    "Operating Systems",
+    "Database Management System",
+    "Computer Networks",
+    "Software Engineering",
+    "Machine Learning",
+    "Object Oriented Programming",
+    "Computer Graphics",
+    "Artificial Intelligence",
+    "Discrete Mathematics"
+  ];
+
+  const filteredSuggestions = q ?
+    suggestions.filter(item =>
+      item.toLowerCase().includes(q.toLowerCase())
+    ) :
+    suggestions.slice(0, 6);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+        setIsFocused(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleInputFocus = () => {
+    setIsFocused(true);
+    setIsDropdownOpen(true);
+  };
+
+  const handleInputChange = (e) => {
+    setQ(e.target.value);
+    setIsDropdownOpen(true);
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setQ(suggestion);
+    setIsDropdownOpen(false);
+    setIsFocused(false);
+    onSearch?.(suggestion);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      setIsDropdownOpen(false);
+      setIsFocused(false);
+      onSearch?.(q);
+    }
+    if (e.key === 'Escape') {
+      setIsDropdownOpen(false);
+      setIsFocused(false);
+      inputRef.current?.blur();
+    }
+  };
+
+  const handleSearch = () => {
+    setIsDropdownOpen(false);
+    setIsFocused(false);
+    onSearch?.(q);
+  };
+
   return (
-    <div className="w-full max-w-2xl mx-auto px-4 sm:px-0">
+    <div className="w-full max-w-2xl mx-auto px-4 sm:px-0" ref={containerRef}>
       {/* Main Search Container */}
       <div className="relative">
-        {/* Search Icon */}
-        <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
-          <svg 
-            className="h-5 w-5 text-gray-400" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-        </div>
-        
-        {/* Search Input */}
-        <input
-          className="
-            block w-full 
-            pl-10 pr-3 py-3 sm:pl-12 sm:pr-4 sm:py-4
-            text-base sm:text-lg
-            bg-white
-            border-2 border-gray-200 rounded-lg sm:rounded-xl
-            placeholder-gray-500 text-gray-900
-            transition-all duration-200
-            shadow-sm hover:shadow-md
-            focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200
-            hover:border-gray-300
-          "
-          placeholder="Search notes, subjects, topics..."
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && onSearch?.(q)}
-        />
-        
-        {/* Search Button - Hidden on mobile, visible on larger screens */}
-        <div className="hidden sm:flex absolute inset-y-0 right-0 items-center pr-2">
-          <button
-            className="
-              px-4 py-2 rounded-lg font-medium text-white
-              bg-blue-600 hover:bg-blue-700
-              transition-colors duration-200
-              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-            "
-            onClick={() => onSearch?.(q)}
-          >
-            Search
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Search Button */}
-      <div className="mt-3 sm:hidden">
-        <button
-          className="
-            w-full py-3 rounded-lg font-medium text-white
-            bg-blue-600 hover:bg-blue-700
-            transition-colors duration-200
-            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-          "
-          onClick={() => onSearch?.(q)}
+        {/* Search Box */}
+        <div
+          className={`
+            relative flex items-center
+            bg-white border rounded-full
+            transition-all duration-200 ease-in-out
+            hover:shadow-md
+            ${isFocused || isDropdownOpen ?
+              'shadow-lg border-transparent ring-1 ring-blue-200' :
+              'border-gray-300 shadow-sm'
+            }
+          `}
         >
-          Search
-        </button>
-      </div>
+          {/* Search Icon */}
+          <div className="pl-4 pr-2 flex items-center">
+            <svg
+              className="h-5 w-5 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
 
-      {/* Popular Searches */}
-      <div className="mt-4 sm:mt-6">
-        <div className="flex flex-wrap items-center gap-2 justify-center sm:justify-start">
-          <span className="text-xs sm:text-sm font-medium text-gray-500">Popular:</span>
-          {["Data Structures", "OS", "Mathematics", "DBMS"].map((tag) => (
+          {/* Search Input */}
+          <input
+            ref={inputRef}
+            className="
+              flex-1 py-3 px-2 text-base
+              bg-transparent border-none outline-none
+              placeholder-gray-500 text-gray-900
+            "
+            placeholder="Search notes, subjects, PYQs..."
+            value={q}
+            onChange={handleInputChange}
+            onFocus={handleInputFocus}
+            onKeyDown={handleKeyPress}
+            autoComplete="off"
+          />
+
+          {/* Clear Button */}
+          {q && (
             <button
-              key={tag}
-              className="
-                text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-1.5 
-                rounded-full font-medium
-                bg-gray-100 text-gray-700 
-                hover:bg-blue-100 hover:text-blue-700
-                transition-colors duration-200
-                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1
-              "
+              className="px-2 text-gray-400 hover:text-gray-600"
               onClick={() => {
-                setQ(tag);
-                onSearch?.(tag);
+                setQ("");
+                inputRef.current?.focus();
               }}
             >
-              {tag}
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
             </button>
-          ))}
-        </div>
-      </div>
+          )}
 
-      {/* Quick Access Categories */}
-      <div className="mt-4 grid grid-cols-4 gap-2 sm:gap-3">
-        {[
-          { icon: "📚", label: "Notes" },
-          { icon: "📝", label: "PYQs" },
-          { icon: "🎓", label: "Subjects" },
-          { icon: "🏆", label: "Certificates" }
-        ].map((category, index) => (
-          <button 
-            key={index}
+          {/* Search Button */}
+          <button
             className="
-              p-2 sm:p-3 rounded-lg bg-white 
-              border border-gray-200 hover:border-gray-300 
-              hover:bg-gray-50 transition-all duration-200 
-              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1
-              text-center
+              px-4 py-2 mr-1 text-gray-600 hover:text-blue-600
+              transition-colors duration-200
+              focus:outline-none
             "
+            onClick={handleSearch}
           >
-            <div className="text-lg sm:text-xl mb-1">{category.icon}</div>
-            <div className="text-xs sm:text-sm font-medium text-gray-700">{category.label}</div>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
           </button>
-        ))}
+        </div>
+
+        {/* Dropdown Suggestions */}
+        {isDropdownOpen && (
+          <div className="absolute top-full left-0 right-0 mt-1 z-50bg-white border border-gray-200 rounded-2xl shadow-lg max-h-96 overflow-y-auto">
+            {/* Search Results Header */}
+            {q && (
+              <div className="px-4 py-2 border-b border-gray-100">
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  Search for "{q}"
+                </div>
+              </div>
+            )}
+
+            {/* Suggestions */}
+            <div className="py-2">
+              {filteredSuggestions.map((suggestion, index) => (
+                <button
+                  key={index}
+                  className="
+                    w-full text-left px-4 py-2 
+                    hover:bg-gray-50 
+                    transition-colors duration-150
+                    focus:outline-none focus:bg-gray-50
+                    flex items-center gap-3
+                  "
+                  onClick={() => handleSuggestionClick(suggestion)}
+                >
+                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  <span className="text-gray-700">{suggestion}</span>
+                </button>
+              ))}
+
+              {/* Popular Searches */}
+              {!q && (
+                <>
+                  <div className="px-4 py-2 border-t border-gray-100 mt-2">
+                    <div className="text-sm font-medium text-gray-500">Popular Searches</div>
+                  </div>
+                  {["Data Structures", "OS", "DBMS", "Networks"].map((tag) => (
+                    <button
+                      key={tag}
+                      className="
+                        w-full text-left px-4 py-2 
+                        hover:bg-gray-50 
+                        transition-colors duration-150
+                        focus:outline-none focus:bg-gray-50
+                        flex items-center gap-3
+                      "
+                      onClick={() => handleSuggestionClick(tag)}
+                    >
+                      <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                      </svg>
+                      <span className="text-gray-700">{tag}</span>
+                    </button>
+                  ))}
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
