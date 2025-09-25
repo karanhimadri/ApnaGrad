@@ -3,7 +3,6 @@ import { account, database } from "./appwrite";
 
 const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID;
 const USER_PROFILES_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_PROFILES_COLLECTION_ID;
-const BASE_URL = "apnagrad.himadri.me"
 
 class AuthService {
   // 🔹 Register a new user
@@ -152,7 +151,7 @@ class AuthService {
     try {
       await account.createRecovery({
         email,
-        url: `${BASE_URL}/auth/reset-password`,
+        url: `${process.env.NEXT_PUBLIC_PRODUCTION_URL}/auth/reset-password`,
       });
 
       return {
