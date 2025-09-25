@@ -327,7 +327,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-gray-600 mb-4">
-                "ApnaGrad's PYQ collection helped me improve my semester grades from 7.2 to 8.9 CGPA. The organized content made exam preparation so much easier!"
+                &ldquo;ApnaGrad&rsquo;s PYQ collection helped me improve my semester grades from 7.2 to 8.9 CGPA. The organized content made exam preparation so much easier!&rdquo;
               </p>
               <div className="flex text-yellow-400">
                 ⭐⭐⭐⭐⭐
@@ -345,7 +345,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-gray-600 mb-4">
-                "Got placed in TCS through their placement preparation materials. The coding questions and mock interviews were exactly what I needed!"
+                &ldquo;Got placed in TCS through their placement preparation materials. The coding questions and mock interviews were exactly what I needed!&rdquo;
               </p>
               <div className="flex text-yellow-400">
                 ⭐⭐⭐⭐⭐
@@ -363,7 +363,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-gray-600 mb-4">
-                "The certificate generator helped me get 20 MAR points for extracurricular activities. Simple, fast, and professional quality!"
+                &ldquo;The certificate generator helped me get 20 MAR points for extracurricular activities. Simple, fast, and professional quality!&rdquo;
               </p>
               <div className="flex text-yellow-400">
                 ⭐⭐⭐⭐⭐
