@@ -85,7 +85,7 @@ export const UserContextProvider = ({ children }) => {
 
   // Check authentication status on component mount
   useEffect(() => {
-    // fetchUserData();
+    fetchUserData();
   }, []);
 
   // Helper to check if user is authenticated

@@ -22,11 +22,7 @@ export default function SearchBar({ onSearch }) {
     "Discrete Mathematics"
   ];
 
-  const filteredSuggestions = q ?
-    suggestions.filter(item =>
-      item.toLowerCase().includes(q.toLowerCase())
-    ) :
-    suggestions.slice(0, 6);
+  const filteredSuggestions = q ? suggestions.filter(item => item.toLowerCase().includes(q.toLowerCase())) : suggestions.slice(0, 6);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -153,8 +149,7 @@ export default function SearchBar({ onSearch }) {
 
         {/* Dropdown Suggestions */}
         {isDropdownOpen && (
-          <div className="absolute top-full left-0 right-0 mt-1 z-50bg-white border border-gray-200 rounded-2xl shadow-lg max-h-96 overflow-y-auto">
-            {/* Search Results Header */}
+          <div className="absolute top-full left-0 right-0 mt-1 z-50 bg-white border border-gray-200 rounded-2xl shadow-lg max-h-96 overflow-y-auto">
             {q && (
               <div className="px-4 py-2 border-b border-gray-100">
                 <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -165,19 +160,12 @@ export default function SearchBar({ onSearch }) {
                 </div>
               </div>
             )}
-
-            {/* Suggestions */}
             <div className="py-2">
               {filteredSuggestions.map((suggestion, index) => (
                 <button
                   key={index}
-                  className="
-                    w-full text-left px-4 py-2 
-                    hover:bg-gray-50 
-                    transition-colors duration-150
-                    focus:outline-none focus:bg-gray-50
-                    flex items-center gap-3
-                  "
+                  role="option"
+                  className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-center gap-3"
                   onClick={() => handleSuggestionClick(suggestion)}
                 >
                   <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -186,33 +174,6 @@ export default function SearchBar({ onSearch }) {
                   <span className="text-gray-700">{suggestion}</span>
                 </button>
               ))}
-
-              {/* Popular Searches */}
-              {!q && (
-                <>
-                  <div className="px-4 py-2 border-t border-gray-100 mt-2">
-                    <div className="text-sm font-medium text-gray-500">Popular Searches</div>
-                  </div>
-                  {["Data Structures", "OS", "DBMS", "Networks"].map((tag) => (
-                    <button
-                      key={tag}
-                      className="
-                        w-full text-left px-4 py-2 
-                        hover:bg-gray-50 
-                        transition-colors duration-150
-                        focus:outline-none focus:bg-gray-50
-                        flex items-center gap-3
-                      "
-                      onClick={() => handleSuggestionClick(tag)}
-                    >
-                      <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                      </svg>
-                      <span className="text-gray-700">{tag}</span>
-                    </button>
-                  ))}
-                </>
-              )}
             </div>
           </div>
         )}

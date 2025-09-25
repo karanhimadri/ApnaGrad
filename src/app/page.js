@@ -77,7 +77,7 @@ export default function Home() {
       const res = await authService.getUserProfile("68c48dd3003a20a65b08");
       console.log(res)
     }
-    // profile();
+    profile();
   }, [])
 
   return (
@@ -110,7 +110,7 @@ export default function Home() {
       )}
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-50 to-indigo-50 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-blue-50 to-indigo-50 overflow-hidden pb-20">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24">
@@ -131,7 +131,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="max-w-2xl mx-auto" id="search">
+            <div className="max-w-2xl mx-auto relative z-10" id="search">
               <SearchBar onSearch={(q) => console.log("home search:", q)} />
             </div>
 
@@ -158,7 +158,7 @@ export default function Home() {
       </section>
 
       {/* Quick Access Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white relative z-0">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
